@@ -1,0 +1,82 @@
+<search>
+  <form id="search-form" if={ opts.app.account.admin }>
+    <div class="row">
+      <div id="search-field" class="input-field col s10">
+        <input id="search" type="text" oninput={ inputKeyword }>
+        <label for="search">Search</label>
+      </div>
+      <div id="clear-button" class="input-field col s2">
+        <button class="btn-flat" onclick={ clearField }><i class="material-icons">clear</i></button>
+      </div>
+    </div>
+
+    <div class="collection">
+      <a class="collection-item" each={ opts.app.users } onclick={ parent.itemSelected } >
+        <span>{ cn }</span>
+      </a>
+    </div>
+
+    <div>
+      <button type="button" onclick={ newUser } class="waves-effect waves-light btn light-blue darken-1" if={ opts.app.unique }>New User</button>
+    </div>
+  </form>
+
+  <style scoped>
+  #search-field {
+    padding-right:0px;
+  }
+  #clear-button, #clear-button button {
+    margin-left:0px;
+    padding-left:0px;
+    margin-right:0px;
+    padding-right:0px;
+  }
+  </style>
+
+  var self = this;
+
+  clearField() {
+    if(opts.app.account.admin) {
+      self.search.value = '';
+      opts.app.search('');
+    }
+  }
+
+  itemSelected(e) {
+    opts.app.trigger('selected', {
+      user: e.item,
+      newUser: false
+    });
+    opts.app.unique = false;
+    Materialize.updateTextFields();
+  }
+
+  inputKeyword() {
+    opts.app.search(self.search.value);
+  }
+
+  newUser() {
+    opts.app.trigger('selected', {
+      user: { cn: self.search.value },
+      newUser: true
+    });
+  }
+
+  self.on('mount', function() {
+    $("#search-form").hide();
+  });
+
+  opts.app.on('authenticated', function() {
+    self.clearField();
+  });
+
+  opts.app.on('found', function() {
+    self.update();
+    $("#search").focus();
+  });
+
+  opts.app.on('updated', function() {
+    self.clearField();
+  });
+
+</search>

@@ -1,0 +1,104 @@
+<user>
+  <form id="user-form" onsubmit={ submitForm }>
+    <input-field fid="cn" icon="person" value={ user.cn } label="User Id" readonly="true"/>
+    <input-field fid="userPassword" icon="security" type="password" value={ user.userPassword } label="Password" required="true"/>
+    <input-field fid="sn" icon="info_outline" value={ user.sn } label="Last Name" required="true" onchange={ updateDisplayName }/>
+    <input-field fid="givenName" value={ user.givenName } label="First Name" required="true" onchange={ updateDisplayName }/>
+    <input-field fid="displayName" value={ user.displayName } label="Display Name" required="true"/>
+    <input-field fid="mail" icon="mail" type="email" value={ user.mail } label="Email" required="true"/>
+    <input-field fid="labeledURI" icon="insert_photo" type="url" value={ user.labeledURI } label="Avatar URL"/>
+    <div class="row">
+      <div class="col s6">
+        <button type="submit" class="waves-effect waves-light btn-large light-blue darken-1"><i class="material-icons left">check</i>Save</button>
+      </div>
+      <div class="col s6">
+        <button id="del" type="button" class="waves-effect waves-light btn-large red darken-1"
+          onclick={ delUser }><i class="material-icons left">clear</i>Delete</button>
+      </div>
+    </div>
+  </form>
+
+  var self = this;
+
+  initUser() {
+    self.user = {
+      cn: '',
+      userPassword: '',
+      sn: '',
+      givenName: '',
+      displayName: '',
+      mail: '',
+      labeledURI: ''
+    };
+  }
+
+  updateForm(updatedUser) {
+    self.initUser();
+    for(var key in updatedUser) {
+      self.user[key] = updatedUser[key];
+    }
+    self.update();
+    Materialize.updateTextFields();
+  }
+
+  submitForm() {
+    opts.app.save(self.user);
+  }
+
+  updateDisplayName() {
+    if(!self.user.displayName && self.user.sn && self.user.givenName) {
+      self.user.displayName = self.user.sn + ', ' + self.user.givenName;
+    }
+  }
+
+  delUser() {
+    if(confirm('Delete ' + self.user.cn + '?')) {
+      opts.app.del(self.user);
+    }
+  }
+
+  initForm() {
+    $('#del').hide();
+    $('#user-form input, #user-form button').attr('disabled', false);
+  }
+
+  self.on('mount', function() {
+    $('#user-form input, #user-form button').attr('disabled', true);;
+    self.initUser();
+  });
+
+  opts.app.on('authenticated', function() {
+    self.initForm();
+    if(!opts.app.account.admin) {
+      opts.app.search(opts.app.account.cn, true);
+    }
+  });
+
+  opts.app.on('found', function() {
+    $('#del').hide();
+    if(opts.app.account.admin) {
+      self.updateForm({});
+    } else {
+      self.updateForm(opts.app.users[0]);
+      $('#userPassword').focus();
+    }
+  });
+
+  opts.app.on('selected', function(e) {
+    self.updateForm(e.user);
+    if(e.newUser) {
+      $('#del').hide();
+    } else {
+      $('#del').show();
+    }
+    $('#userPassword').focus();
+  });
+
+  opts.app.on('updated', function() {
+    if(opts.app.account.admin) {
+      self.initForm();
+    } else {
+      location.reload();
+    }
+  });
+</user>
