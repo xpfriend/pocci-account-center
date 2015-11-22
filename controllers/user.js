@@ -90,8 +90,8 @@ var searchUsers = function*(client, body) {
     users.push(obj);
   }
 
-  var unique = entries.length === 0;
-  if(!unique && key) {
+  var unique = false;
+  if(key) {
     opts.filter = '(cn=' + key + ')';
     unique = (yield searchEntries(client, process.env.LDAP_BASE_DN, opts)).length === 0;
   }
