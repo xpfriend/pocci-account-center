@@ -12,8 +12,8 @@ gulp.task('default', function() {
     .pipe(gulp.dest("public/js"));
 
   gulp
-    .src("node_modules/material-design-icons/iconfont/MaterialIcons-Regular.*")
-    .pipe(gulp.dest("public/font"));
+    .src("node_modules/material-design-icons-iconfont/dist/**/*")
+    .pipe(gulp.dest("public/icons"));
 
   gulp
     .src(['server.js', 'controllers/*.js'])

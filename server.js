@@ -23,5 +23,5 @@ app
   .use(router.allowedMethods());
 
 if (!module.parent) {
-  app.listen(process.env.USER_APP_PORT || 80);
+  app.listen(process.env.USER_APP_PORT || 9898);
 }

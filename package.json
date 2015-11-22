@@ -1,5 +1,5 @@
 {
-  "name": "pocci-ac",
+  "name": "pocci-account-center",
   "version": "1.0.0",
   "description": "Pocci Account Center",
   "main": "server.js",
@@ -18,6 +18,8 @@
     "koa-logger": "^1.3.0",
     "koa-router": "^5.2.3",
     "koa-static": "^1.5.2",
+    "material-design-icons-iconfont": "^2.0.3",
+    "materialize-css": "^0.97.3",
     "promised-ldap": "^0.1.0"
   }
 }
