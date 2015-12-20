@@ -1,4 +1,4 @@
-FROM xpfriend/jenkins-slave-nodejs:1.4.0
+FROM xpfriend/jenkins-slave-nodejs:1.5.0
 MAINTAINER ototadana@gmail.com
 
 RUN git clone https://github.com/xpfriend/pocci-account-center.git
