@@ -1,4 +1,4 @@
-FROM xpfriend/workspace-nodejs:2.14.1
+FROM xpfriend/workspace-nodejs:2.15.0
 MAINTAINER ototadana@gmail.com
 
 RUN git clone https://github.com/xpfriend/pocci-account-center.git
