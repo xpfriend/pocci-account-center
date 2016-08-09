@@ -32,7 +32,9 @@
     $('#login').openModal({
       dismissible: false
     });
-    $("#login-cn").focus();
+    setTimeout(function() {
+      $("#login-cn").focus();
+    }, 500);
   });
 
 </login>
