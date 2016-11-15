@@ -29,9 +29,9 @@
   }
 
   self.on('mount', function(){
-    $('#login').openModal({
+    $('#login').modal({
       dismissible: false
-    });
+    }).modal('open');
     setTimeout(function() {
       $("#login-cn").focus();
     }, 500);
