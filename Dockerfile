@@ -1,7 +1,7 @@
 FROM alpine:3.5
 MAINTAINER ototadana@gmail.com
 
-ENV NODEJS_VERSION 6.9.2-r1
+ENV NODEJS_VERSION 6.9.5-r0
 
 RUN apk add --no-cache nodejs=${NODEJS_VERSION} git
 
