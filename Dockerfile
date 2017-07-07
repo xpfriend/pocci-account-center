@@ -1,9 +1,10 @@
-FROM alpine:3.5
+FROM alpine:3.6
 MAINTAINER ototadana@gmail.com
 
-ENV NODEJS_VERSION 6.9.5-r0
+ENV NODEJS_VERSION 6.10.3-r0
+ENV NPM_VERSION 6.10.3-r0
 
-RUN apk add --no-cache nodejs=${NODEJS_VERSION} git
+RUN apk add --no-cache nodejs=${NODEJS_VERSION} nodejs-npm=${NPM_VERSION} git
 
 COPY ./package.json /pocci-account-center/
 RUN cd /pocci-account-center/ && npm install
