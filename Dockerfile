@@ -1,8 +1,8 @@
 FROM alpine:3.6
 MAINTAINER ototadana@gmail.com
 
-ENV NODEJS_VERSION 6.10.3-r0
-ENV NPM_VERSION 6.10.3-r0
+ENV NODEJS_VERSION 6.10.3-r1
+ENV NPM_VERSION 6.10.3-r1
 
 RUN apk add --no-cache nodejs=${NODEJS_VERSION} nodejs-npm=${NPM_VERSION} git
 
